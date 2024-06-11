@@ -19,7 +19,7 @@ const submitProject = async(req,res) => {
             if(!token){
                 return res.status(401).json({message:"Token not found"})
             }
-            userCredetial
+            
             /**
              * geting user credentials
              */
@@ -45,12 +45,12 @@ const submitProject = async(req,res) => {
             if(error){
                 return res.status(501).json({message:"Project not submited", status:"Failure", error:error})
             }else{
-                res.status(200).json({message:"Project recorded", status:"Success", data:result})
+                res.status(200).json({message:"Project Submited", status:"Success", data:result})
             }
         })
 
     }catch(error){
-        return res.status(500).json({message:"Internal server error", error: error})
+        return res.status(500).json({message:"Internal server error", error:`Elisa ${error}`})
     }
 }
 
