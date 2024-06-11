@@ -18,6 +18,8 @@ router.get("/api/v1/getStudent", TokenFunctions.verifyToken,displayAllUsers.getA
 
 router.post("/api/v1/createaccount",createAccounts.studentCreateAccount)
 
+router.get("/api/v1/getStudentProject", studentProject.getStudentProjectByID)
+
 router.post("/api/v1/rapply-project",studentProject.submitProject)
 
 router.put("/api/v1/update-project/:projectID", editSubmited.updateProject)

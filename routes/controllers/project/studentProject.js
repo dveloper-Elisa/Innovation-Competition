@@ -55,4 +55,34 @@ const submitProject = async(req,res) => {
 }
 
 
-export default {submitProject}
+
+
+/**
+ * The function to return the project according to Student ID
+ */
+
+const getStudentProjectByID = async (req, res) => {
+    try{
+        const token = req.headers.authorization
+        if(!token){
+            return res.status(403).json({messge:"Unauthorized Token", status:"Invalid token"})
+        }
+        const userLoged = await tokenFunctions.userCredentials(token)
+
+        // display studentProjects 
+        const sql = "SELECT * FROM Student_project WHERE sa_id = ?"
+        connectionDB.query(sql,[userLoged.id],(error,result)=>{
+            if(!error){
+                if(result.length > 0) return res.status(200).json({messge:"Success", project:result})
+
+                else return res.status(404).json({message:"Project not found", status:"Failure", userLoged})
+
+            }else return res.status(400).json({message:"Error in Select query", status:"Failure" })
+        })
+    }catch(error){
+        return res.status(500).json({messge:"Internal server error", error})
+    }
+}
+
+
+export default {submitProject, getStudentProjectByID}
